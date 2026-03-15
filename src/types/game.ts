@@ -1,19 +1,19 @@
 // ─── BOARD ───────────────────────────────────────────────────────────────────
 
 export type GamePhase =
-  | "setup"
-  | "start-card"
-  | "playing"
-  | "event-card"
-  | "perform-task"
-  | "day-summary"
-  | "game-over";
+  | 'setup'
+  | 'start-card'
+  | 'playing'
+  | 'event-card'
+  | 'perform-task'
+  | 'day-summary'
+  | 'game-over';
 
-export type SquareType = "normal" | "event" | "start";
+export type SquareType = 'normal' | 'event' | 'start';
 
-export type TaskType = "time-based" | "event-based" | "time-check";
+export type TaskType = 'time-based' | 'event-based' | 'time-check';
 
-export type TaskFrequency = "regular" | "irregular";
+export type TaskFrequency = 'regular' | 'irregular';
 
 /**
  * Represents how timely a task was performed.
@@ -23,7 +23,7 @@ export type TaskFrequency = "regular" | "irregular";
  * - missed:  never performed before end of day
  * - incorrect: performed but the wrong task was selected
  */
-export type TaskScore = "on-time" | "late" | "missed" | "incorrect";
+export type TaskScore = 'on-time' | 'late' | 'missed' | 'incorrect';
 
 // ─── BOARD SQUARE ────────────────────────────────────────────────────────────
 
@@ -108,7 +108,7 @@ export interface GameState {
 
   pendingEventCard: EventCard | null;
   pendingTaskPrompt: {
-    reason: "time-based" | "event-based" | "time-check";
+    reason: 'time-based' | 'event-based' | 'time-check';
     taskId?: string;
   } | null;
 
@@ -120,4 +120,13 @@ export interface GameState {
 
   dismissedTimeChecks: number[];
   passedTimeTriggers: number[];
+
+  // Tracks tasks that have been triggered but not yet performed.
+  // Used to calculate on-time vs late scoring.
+  triggeredTasks: {
+    taskId: string;
+    triggeredAtMinutes?: number; // virtual minutes, for time-based tasks
+    triggeredAtSeconds?: number; // stopwatch seconds, for time-check tasks
+    triggeredAtPosition?: number; // board position, for event-based tasks
+  }[];
 }

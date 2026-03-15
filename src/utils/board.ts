@@ -1,4 +1,4 @@
-import type { BoardSquare, SquareType } from "../types/game";
+import type { BoardSquare, SquareType } from '../types/game';
 
 // ─── BOARD DIMENSIONS ────────────────────────────────────────────────────────
 
@@ -31,9 +31,9 @@ export function buildBoard(): BoardSquare[] {
   for (let i = 0; i < TOTAL_SQUARES; i++) {
     const virtualMinutes = i * MINUTES_PER_SQUARE;
 
-    let type: SquareType = "normal";
-    if (i === START_POSITION) type = "start";
-    else if (EVENT_POSITIONS.has(i)) type = "event";
+    let type: SquareType = 'normal';
+    if (i === START_POSITION) type = 'start';
+    else if (EVENT_POSITIONS.has(i)) type = 'event';
 
     squares.push({ index: i, type, virtualMinutes });
   }
@@ -59,8 +59,8 @@ export function minutesToTimeString(minutes: number): string {
   const hours24 = 7 + Math.floor(total / 60);
   const mins = total % 60;
   const hours12 = hours24 % 12 === 0 ? 12 : hours24 % 12;
-  const ampm = hours24 < 12 ? "AM" : "PM";
-  return `${hours12}:${mins.toString().padStart(2, "0")} ${ampm}`;
+  const ampm = hours24 < 12 ? 'AM' : 'PM';
+  return `${hours12}:${mins.toString().padStart(2, '0')} ${ampm}`;
 }
 
 /**
